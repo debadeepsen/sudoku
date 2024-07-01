@@ -100,14 +100,12 @@ const createSudokuPuzzle = (board: Board, difficulty: number): Board => {
 export const generateSudokuBoard = (
   difficulty: number
 ): { puzzle: Board; solution: Board } => {
-  const completedBoard = generateCompletedBoard()
+  const solution = generateCompletedBoard()
+  const puzzle = createSudokuPuzzle(solution, difficulty)
+
   return {
-    puzzle: createSudokuPuzzle(completedBoard, difficulty),
-    solution: completedBoard
+    puzzle,
+    solution
   }
 }
 
-// Example usage
-// const difficulty = 40 // Higher number means more cells removed, increasing difficulty
-// const sudokuBoard = generateSudokuBoard(difficulty)
-// console.log(sudokuBoard)
