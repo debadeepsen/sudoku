@@ -1,13 +1,12 @@
-import api from '@/api/api'
-import { Board, generateSudokuBoard } from '@/lib/generator'
+import { generateSudokuBoard } from '@/app/server-actions/actions'
 import { Box } from '@mui/material'
 import React, { useEffect, useState } from 'react'
 
 const Game = () => {
-  const [sudoku, setSudoku] = useState<any|null>(null)
+  const [sudoku, setSudoku] = useState<any | null>(null)
 
-  const loadData = () => {
-    const data = generateSudokuBoard(20)
+  const loadData = async () => {
+    const data = await generateSudokuBoard(20)
     setSudoku(data)
   }
 

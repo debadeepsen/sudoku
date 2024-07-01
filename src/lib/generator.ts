@@ -47,7 +47,7 @@ const findEmptyCell = (board: Board): [number, number] | null => {
 }
 
 // Recursive function to solve the board
-const solveBoard = (board: Board): boolean => {
+const solveBoard = (board: Board) => {
   const cell = findEmptyCell(board)
   if (!cell) return true // No empty cell, board is solved
 
@@ -65,14 +65,14 @@ const solveBoard = (board: Board): boolean => {
 }
 
 // Function to generate a completed Sudoku board
-const generateCompletedBoard = (): Board => {
+export const generateCompletedBoard = () => {
   const board = createEmptyBoard()
   solveBoard(board)
   return board
 }
 
 // Function to remove numbers from the board to create a puzzle
-const createSudokuPuzzle = (board: Board, difficulty: number): Board => {
+export const createSudokuPuzzle = (board: Board, difficulty: number) => {
   const puzzle = board.map((row) => [...row])
   let attempts = difficulty
 
@@ -95,17 +95,3 @@ const createSudokuPuzzle = (board: Board, difficulty: number): Board => {
 
   return puzzle
 }
-
-// Function to generate a Sudoku board with a given difficulty
-export const generateSudokuBoard = (
-  difficulty: number
-): { puzzle: Board; solution: Board } => {
-  const solution = generateCompletedBoard()
-  const puzzle = createSudokuPuzzle(solution, difficulty)
-
-  return {
-    puzzle,
-    solution
-  }
-}
-
