@@ -1,15 +1,20 @@
 import { generateSudokuBoard } from '@/app/server-actions/actions'
 import { Board, emptyBoard } from '@/lib/generator'
-import { Box, Button, Grid } from '@mui/material'
-import React, { useEffect, useState } from 'react'
+import {
+  Box,
+  Button,
+  ButtonGroup,
+  Grid,
+  Popover,
+  Typography
+} from '@mui/material'
+import React, { MouseEvent, useEffect, useRef, useState } from 'react'
 import Borders from './Borders'
-import { GridOn, GridOnOutlined } from '@mui/icons-material'
+import { Expand, ExpandMore, GridOn, GridOnOutlined } from '@mui/icons-material'
 
 const Game = () => {
-  const [sudoku, setSudoku] = useState<{
-    puzzle: Board
-    solution: Board
-  } | null>({
+  const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null)
+  const [sudoku, setSudoku] = useState({
     puzzle: emptyBoard,
     solution: emptyBoard
   })
@@ -18,6 +23,16 @@ const Game = () => {
     const data = await generateSudokuBoard(20)
     setSudoku(data)
   }
+
+  const handleMenuOpen = (event: MouseEvent<HTMLButtonElement>) => {
+    setAnchorEl(event.currentTarget)
+  }
+
+  const handleClose = () => {
+    setAnchorEl(null)
+  }
+
+  const open = Boolean(anchorEl)
 
   useEffect(() => {
     // loadData()
@@ -47,9 +62,30 @@ const Game = () => {
         </Box>
         {sudoku?.puzzle && <Borders />}
         <Box className='px-4'>
-          <Button variant='contained' startIcon={<GridOnOutlined />} onClick={loadData}>
-            New Game
-          </Button>
+          <ButtonGroup variant='contained'>
+            <Button startIcon={<GridOnOutlined />} onClick={loadData}>
+              New Game
+            </Button>
+            <Button size='small' onClick={handleMenuOpen}>
+              <ExpandMore sx={{ fontSize: 18 }} />
+            </Button>
+          </ButtonGroup>{' '}
+          <Popover
+            id='difficulty-popover'
+            open={open}
+            anchorEl={anchorEl}
+            onClose={handleClose}
+            anchorOrigin={{
+              vertical: 'bottom',
+              horizontal: 'right'
+            }}
+            transformOrigin={{
+              vertical: 'top',
+              horizontal: 'right'
+            }}
+          >
+            <Typography sx={{ p: 2 }}>The content of the Popover.</Typography>
+          </Popover>
         </Box>
       </Box>
     </Box>

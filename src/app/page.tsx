@@ -2,11 +2,11 @@
 
 import Game from '@/components/Game'
 import { ThemeProvider, createTheme } from '@mui/material'
-import { cyan, green, teal } from '@mui/material/colors'
+import { cyan, green, lightBlue, lightGreen, teal } from '@mui/material/colors'
 
 const theme = createTheme({
   palette: {
-    primary: { main: teal[800], contrastText: '#fff' }
+    primary: { main: lightGreen[900], contrastText: '#fff' }
   }
 })
 
