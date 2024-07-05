@@ -13,7 +13,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang='en'>
-      <body className='bg-forest-100 dark:bg-forest-950'>{children}</body>
+      <body className='bg-forest-100 dark:bg-forest-950 text-forest-900 dark:text-forest-50'>
+        {children}
+      </body>
     </html>
   )
 }

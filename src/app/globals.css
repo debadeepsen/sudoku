@@ -1,6 +1,13 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
 /* @tailwind base; */
 /* @tailwind components; */
 @tailwind utilities;
+
+* {
+  font-family: 'Montserrat', system-ui, sans-serif;
+  font-weight: 200;
+}
 
 :root {
   font-size: 16px;
@@ -40,4 +47,9 @@ body {
   .text-balance {
     text-wrap: balance;
   }
+}
+
+button, button * {
+  text-transform: none !important;
+  font-weight: 200 !important;
 }

@@ -1,13 +1,18 @@
 import { generateSudokuBoard } from '@/app/server-actions/actions'
-import { Board } from '@/lib/generator'
+import { Board, emptyBoard } from '@/lib/generator'
 import { Box, Button, Grid } from '@mui/material'
 import React, { useEffect, useState } from 'react'
+import Borders from './Borders'
+import { GridOn, GridOnOutlined } from '@mui/icons-material'
 
 const Game = () => {
   const [sudoku, setSudoku] = useState<{
     puzzle: Board
     solution: Board
-  } | null>(null)
+  } | null>({
+    puzzle: emptyBoard,
+    solution: emptyBoard
+  })
 
   const loadData = async () => {
     const data = await generateSudokuBoard(20)
@@ -15,11 +20,11 @@ const Game = () => {
   }
 
   useEffect(() => {
-    loadData()
+    // loadData()
   }, [])
 
   return (
-    <Box className='rounded-md shadow-lg dark:shadow-black/30 border bg-white dark:bg-forest-800 w-[75vw] p-6 box-border'>
+    <Box className='rounded-md shadow-lg dark:shadow-black/30 border bg-white dark:bg-forest-800 w-[75vw] max-w-[1000px] p-6 box-border'>
       {/* <pre>{JSON.stringify(sudoku, null, 2)}</pre> */}
       <Box className='flex flex-col lg:flex-row'>
         <Box className='bg-zinc-900/20 dark:bg-zinc-300/20 p-[1px] box-border'>
@@ -40,30 +45,12 @@ const Game = () => {
             )
           })}
         </Box>
-        <Box className='absolute pointer-events-none'>
-          {[0, 1, 2].map(i => (
-            <Box
-              key={i}
-              className='w-[432px] h-[144px] box-border border-b-zinc-950 dark:border-b-zinc-200'
-              position={'relative'}
-              top={1}
-              borderBottom={i === 2 ? 0 : '2px solid'}
-            ></Box>
-          ))}
+        {sudoku?.puzzle && <Borders />}
+        <Box className='px-4'>
+          <Button variant='contained' startIcon={<GridOnOutlined />} onClick={loadData}>
+            New Game
+          </Button>
         </Box>
-        <Box className='absolute flex pointer-events-none'>
-          {[0, 1, 2].map(i => (
-            <Box
-              key={i}
-              className='w-[144px] h-[432px] box-border border-r-zinc-950 dark:border-r-zinc-200'
-              position={'relative'}
-              left={1}
-              top={1}
-              borderRight={i === 2 ? 0 : '2px solid'}
-            ></Box>
-          ))}
-        </Box>
-        <Box></Box>
       </Box>
     </Box>
   )

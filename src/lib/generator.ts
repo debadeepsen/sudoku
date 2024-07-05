@@ -10,8 +10,9 @@ const shuffleArray = <T>(array: T[]): T[] => {
 }
 
 // Function to create an empty board
-const createEmptyBoard = (): Board =>
-  Array.from({ length: 9 }, () => Array(9).fill(0))
+export const emptyBoard = Array.from({ length: 9 }, () => Array(9).fill(0))
+
+const createEmptyBoard = () => emptyBoard
 
 // Function to check if a number can be placed in a given cell
 const isValidPlacement = (
@@ -21,13 +22,13 @@ const isValidPlacement = (
   num: number
 ): boolean => {
   const isValidInRow = !board[row].includes(num)
-  const isValidInCol = !board.some((row) => row[col] === num)
+  const isValidInCol = !board.some(row => row[col] === num)
   const subGridRow = Math.floor(row / 3) * 3
   const subGridCol = Math.floor(col / 3) * 3
 
   const isValidInSubGrid = !board
     .slice(subGridRow, subGridRow + 3)
-    .some((subGridRow) =>
+    .some(subGridRow =>
       subGridRow.slice(subGridCol, subGridCol + 3).includes(num)
     )
 
@@ -73,7 +74,7 @@ export const generateCompletedBoard = () => {
 
 // Function to remove numbers from the board to create a puzzle
 export const createSudokuPuzzle = (board: Board, difficulty: number) => {
-  const puzzle = board.map((row) => [...row])
+  const puzzle = board.map(row => [...row])
   let attempts = difficulty
 
   while (attempts > 0) {
@@ -84,7 +85,7 @@ export const createSudokuPuzzle = (board: Board, difficulty: number) => {
       const backup = puzzle[row][col]
       puzzle[row][col] = 0
 
-      const boardCopy = puzzle.map((row) => [...row])
+      const boardCopy = puzzle.map(row => [...row])
       if (!solveBoard(boardCopy)) {
         puzzle[row][col] = backup
       } else {
