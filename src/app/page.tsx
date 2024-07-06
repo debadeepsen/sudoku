@@ -1,14 +1,8 @@
 'use client'
 
 import Game from '@/components/Game'
-import { ThemeProvider, createTheme } from '@mui/material'
-import { cyan, green, lightBlue, lightGreen, teal } from '@mui/material/colors'
-
-const theme = createTheme({
-  palette: {
-    primary: { main: lightGreen[900], contrastText: '#fff' }
-  }
-})
+import { theme } from '@/lib/theme'
+import { ThemeProvider } from '@mui/material'
 
 export default function Home() {
   return (
